@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="javascript.js"></script>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body style="background-color: #333;">
@@ -34,7 +35,6 @@
                 </div>
             </div>
         </nav>
-<!--hello-->
 <div class="container-fluid text-center">    
     <div class="row content">
         <div class="col-sm-2 sidenav">
@@ -53,6 +53,15 @@
             </ul>
           </div>
         <div class="col-sm-10 text-left" style="background-color: #fff">
+          <div id="overlay" class="overlay">
+            <div id="popup" class="popup">
+                <div class="popup-content">
+                    <h2>Please enter your name:</h2>
+                    <input type="text" id="nameInput">
+                    <button onclick="saveName()">Submit</button>
+                </div>
+            </div>
+        </div>    
             <h1 id="section1">How to Properly Meal Plan</h1>
             <hr>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -148,17 +157,31 @@
     </div>
   </footer>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    var name = localStorage.getItem("username");
+      document.addEventListener("DOMContentLoaded", function() {
+      var name = localStorage.getItem("username");
 
-    if (!name) {
-        name = prompt("Please enter your name:");
-        localStorage.setItem("username", name);
-    }
+      if (!name) {
+          document.getElementById("overlay").style.display = "block";
+      } else {
+          displayWelcomeMessage(name);
+      }
+  });
 
-    document.body.innerHTML = "<h1>Welcome, " + name + "!</h1>";
-});
+  function saveName() {
+      var name = document.getElementById("nameInput").value;
+      if (name.trim() !== "") {
+          localStorage.setItem("username", name);
+          document.getElementById("overlay").style.display = "none";
+          displayWelcomeMessage(name);
+      } else {
+          alert("Please enter a valid name.");
+      }
+  }
+
+  function displayWelcomeMessage(name) {
+      document.body.innerHTML = "<h1>Welcome, " + name + "!</h1>";
+  }
+
   </script>
-
 </body>
 </html>
