@@ -147,7 +147,18 @@
       </div>
     </div>
   </footer>
-  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var name = localStorage.getItem("username");
+
+    if (!name) {
+        name = prompt("Please enter your name:");
+        localStorage.setItem("username", name);
+    }
+
+    document.body.innerHTML = "<h1>Welcome, " + name + "!</h1>";
+});
+  </script>
 
 </body>
 </html>
